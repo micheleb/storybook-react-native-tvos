@@ -6,18 +6,18 @@ import {
   Easing,
   Keyboard,
   Platform,
-  ScrollView,
+  ScrollView as RNScrollView,
   StyleProp,
   Text,
   useWindowDimensions,
   View,
   ViewStyle,
 } from 'react-native';
+import { isTV, ScrollView, useSafeAreaInsets } from './tv-safe-imports';
 import { addons } from 'storybook/manager-api';
 import { Addon_TypesEnum } from 'storybook/internal/types';
 import { CloseIcon } from './icon/iconDataUris';
 import useAnimatedValue from './useAnimatedValue';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export interface MobileAddonsPanelRef {
   setAddonsPanelOpen: (isOpen: boolean) => void;
@@ -247,25 +247,42 @@ export const AddonsTabs = ({ onClose, storyId }: { onClose?: () => void; storyId
   return (
     <View style={addonsTabsContainerStyle}>
       <View style={addonsTabsStyle}>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={addonsTabsContentContainerStyle}
-          keyboardShouldPersistTaps="handled"
-        >
-          {Object.values(panels).map(({ id, title }) => {
-            const resolvedTitle = typeof title === 'function' ? title({}) : title;
+        {isTV ? (
+          <View style={[addonsTabsContentContainerStyle, { flexDirection: 'row' }]}>
+            {Object.values(panels).map(({ id, title }) => {
+              const resolvedTitle = typeof title === 'function' ? title({}) : title;
 
-            return (
-              <Tab
-                key={id}
-                active={id === addonSelected}
-                onPress={() => setAddonSelected(id)}
-                text={resolvedTitle}
-              />
-            );
-          })}
-        </ScrollView>
+              return (
+                <Tab
+                  key={id}
+                  active={id === addonSelected}
+                  onPress={() => setAddonSelected(id)}
+                  text={resolvedTitle}
+                />
+              );
+            })}
+          </View>
+        ) : (
+          <RNScrollView
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            contentContainerStyle={addonsTabsContentContainerStyle}
+            keyboardShouldPersistTaps="handled"
+          >
+            {Object.values(panels).map(({ id, title }) => {
+              const resolvedTitle = typeof title === 'function' ? title({}) : title;
+
+              return (
+                <Tab
+                  key={id}
+                  active={id === addonSelected}
+                  onPress={() => setAddonSelected(id)}
+                  text={resolvedTitle}
+                />
+              );
+            })}
+          </RNScrollView>
+        )}
 
         <IconButton
           style={closeIconStyle}

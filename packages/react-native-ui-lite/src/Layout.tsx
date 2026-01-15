@@ -1,4 +1,3 @@
-import { PortalHost, PortalProvider } from '@gorhom/portal';
 import type { ReactRenderer } from '@storybook/react';
 import { styled, ThemeProvider, useTheme } from '@storybook/react-native-theming';
 import {
@@ -11,8 +10,15 @@ import {
   useStyle,
 } from '@storybook/react-native-ui-common';
 import { ReactElement, ReactNode, useCallback, useLayoutEffect, useRef, useState } from 'react';
-import { ScrollView, Text, TouchableOpacity, View, ViewStyle } from 'react-native';
-import { SafeAreaProvider, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Text, TouchableOpacity, View, ViewStyle } from 'react-native';
+import {
+  isTV,
+  PortalHost,
+  PortalProvider,
+  SafeAreaProvider,
+  ScrollView,
+  useSafeAreaInsets,
+} from './tv-safe-imports';
 import { SET_CURRENT_STORY } from 'storybook/internal/core-events';
 import type { Args, StoryContext } from 'storybook/internal/csf';
 import { type API_IndexHash } from 'storybook/internal/types';
@@ -86,7 +92,9 @@ export const Layout = ({
 }) => {
   const theme = useTheme();
 
-  const { isDesktop } = useLayout();
+  const { isDesktop: isDesktopLayout } = useLayout();
+  // TV platforms should use desktop layout - mobile components have native module issues
+  const isDesktop = isTV || isDesktopLayout;
 
   const insets = useSafeAreaInsets();
 

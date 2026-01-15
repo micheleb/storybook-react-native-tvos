@@ -1,0 +1,28 @@
+{
+  "cli": {
+    "version": ">= 16.19.3"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "env": {
+        "EXPO_TV": "1",
+        "EXPO_PUBLIC_STORYBOOK_ENABLED": "true"
+      }
+    },
+    "preview": {
+      "distribution": "internal",
+      "env": {
+        "EXPO_TV": "1",
+        "EXPO_PUBLIC_STORYBOOK_ENABLED": "true"
+      }
+    },
+    "production": {
+      "env": {
+        "EXPO_TV": "1",
+        "EXPO_PUBLIC_STORYBOOK_ENABLED": "true"
+      }
+    }
+  }
+}

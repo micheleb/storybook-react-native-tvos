@@ -31,6 +31,7 @@
   },
   "scripts": {
     "example": "yarn workspace expo-example storybook",
+    "example:tv": "yarn workspace expo-example-tv storybook",
     "dev": "lerna run dev --stream --parallel",
     "dev:check-types": "tsc --noEmit",
     "lint": "eslint --cache -c ./eslint.config.js",

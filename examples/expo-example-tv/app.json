@@ -1,0 +1,24 @@
+{
+  "name": "Expo Example TV",
+  "slug": "expo-example-tv",
+  "version": "1.0.0",
+  "orientation": "landscape",
+  "scheme": "storybook-tv",
+  "userInterfaceStyle": "automatic",
+  "newArchEnabled": true,
+  "icon": "./assets/icon.png",
+  "plugins": ["@react-native-tvos/config-tv"],
+  "ios": {
+    "bundleIdentifier": "com.storybook.example.tv",
+    "infoPlist": {
+      "ITSAppUsesNonExemptEncryption": false
+    }
+  },
+  "android": {
+    "package": "com.storybook.example.tv"
+  },
+  "experiments": {
+    "tsconfigPaths": true
+  },
+  "owner": "react-native-storybook"
+}

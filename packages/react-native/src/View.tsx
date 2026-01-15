@@ -14,10 +14,15 @@ import { useEffect, useMemo, useReducer, useState } from 'react';
 import {
   ActivityIndicator,
   Linking,
+  Platform,
+  Text,
   View as RNView,
   StyleSheet,
   useColorScheme,
 } from 'react-native';
+
+// ActivityIndicator doesn't work on Android TV (AndroidProgressBar not available)
+const isTV = Platform.isTV;
 import StoryView from './components/StoryView';
 import { useSetStoryContext, useStoryContext } from './hooks';
 import getHost from './rn-host-detect';
@@ -380,7 +385,7 @@ export class View {
               justifyContent: 'center',
             }}
           >
-            <ActivityIndicator animating size={'large'} />
+             <ActivityIndicator animating size={'large'} />
           </RNView>
         );
       }
